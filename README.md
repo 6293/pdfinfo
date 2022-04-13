@@ -1,7 +1,7 @@
 # Pdfinfo
 
 ```elixir
-iex(1)> Pdfinfo.inspect("/home/kiyofuji/Downloads/03_b_23syakai_tyu-combined.pdf")
+iex(1)> Pdfinfo.inspect("some.pdf")
 {:ok,
   %{
     creator: "Chromium",
