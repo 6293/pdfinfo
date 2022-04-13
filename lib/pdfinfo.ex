@@ -35,7 +35,7 @@ defmodule Pdfinfo do
     Enum.reverse(acc)
   end
 
-  def do_page_info([{"Page    " <> x, size}, {"Page    " <> _, rot} | columns], acc) do
+  def do_page_info([{"Page    " <> _, size}, {"Page    " <> _, rot} | columns], acc) do
     [w, _, h | _] = size |> String.split(" ")
     p = paper(w |> Float.parse |> elem(0), h |> Float.parse |> elem(0))
     info = %{width: w |> Float.parse |> elem(0), height: h |> Float.parse |> elem(0), paper: p, rotation: rot}
@@ -73,10 +73,6 @@ defmodule Pdfinfo do
 
   defp format([{"Optimized", optimized} | columns], acc) do
     format(columns, Map.put(acc, :optimized, optimized == "yes"))
-  end
-
-  defp format([_ | columns], acc) do
-    format(columns, acc)
   end
 
   defp format([_ | columns], acc) do
