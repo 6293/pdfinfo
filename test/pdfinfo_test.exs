@@ -57,6 +57,42 @@ defmodule PdfinfoTest do
            } = res
   end
 
+  test "unnamed square" do
+    path = "/tmp/unnamed_square.pdf"
+    run("convert -size 300x300 xc:none #{path}")
+    {:ok, res} = Pdfinfo.inspect(path)
+    assert %{
+             npage: "1",
+             optimized: false,
+             pages: [%{height: 300.0, paper: {:other, :square}, rotation: "0", width: 300.0}],
+             producer: "https://imagemagick.org"
+           } = res
+  end
+
+  test "unnamed portrait" do
+    path = "/tmp/unnamed_square.pdf"
+    run("convert -size 300x400 xc:none #{path}")
+    {:ok, res} = Pdfinfo.inspect(path)
+    assert %{
+             npage: "1",
+             optimized: false,
+             pages: [%{height: 400.0, paper: {:other, :portrait}, rotation: "0", width: 300.0}],
+             producer: "https://imagemagick.org"
+           } = res
+  end
+
+  test "unnamed landscape" do
+    path = "/tmp/unnamed_square.pdf"
+    run("convert -size 400x300 xc:none #{path}")
+    {:ok, res} = Pdfinfo.inspect(path)
+    assert %{
+             npage: "1",
+             optimized: false,
+             pages: [%{height: 300.0, paper: {:other, :landscape}, rotation: "0", width: 400.0}],
+             producer: "https://imagemagick.org"
+           } = res
+  end
+
   test "2 pages" do
     run("convert xc:none -page Letter /tmp/page1.pdf")
     run("convert xc:none -page A3 /tmp/page2.pdf")

@@ -89,7 +89,12 @@ defmodule Pdfinfo do
       _ ->
         case Enum.find(@papers, fn target_wh -> page_dimension_equal(target_wh, {h, w}) end) do
           {_, _, target} -> {target, :landscape}
-          _ -> :other
+          _ ->
+            case {w < h, w == h} do
+              {true, _} -> {:other, :portrait}
+              {_, true} -> {:other, :square}
+              _ -> {:other, :landscape}
+            end
         end
     end
   end
