@@ -1,21 +1,19 @@
 # Pdfinfo
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `pdfinfo` to your list of dependencies in `mix.exs`:
-
 ```elixir
-def deps do
-  [
-    {:pdfinfo, "~> 0.1.0"}
-  ]
-end
+iex(1)> Pdfinfo.inspect("/home/kiyofuji/Downloads/03_b_23syakai_tyu-combined.pdf")
+{:ok,
+  %{
+    creator: "Chromium",
+    npage: "5",
+    optimized: true,
+    pages: [
+      %{height: 841.89, paper: {:a4, :portrait}, rotation: "0", width: 595.276},
+      %{height: 841.89, paper: {:a4, :portrait}, rotation: "0", width: 595.276},
+      %{height: 841.89, paper: {:a4, :portrait}, rotation: "0", width: 595.276},
+      %{height: 841.89, paper: {:a4, :portrait}, rotation: "0", width: 595.276},
+      %{height: 841.92, paper: {:a4, :portrait}, rotation: "0", width: 594.96}
+    ],
+    producer: "Skia/PDF m93"
+  }}
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/pdfinfo>.
-
