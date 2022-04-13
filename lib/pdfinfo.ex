@@ -1,4 +1,8 @@
 defmodule Pdfinfo do
+  @moduledoc """
+  pdfinfo wrapper
+  """
+
   @a0 {2384, 3371, :a0}
   @a1 {1635, 2384, :a1}
   @a2 {1190, 1684, :a2}
