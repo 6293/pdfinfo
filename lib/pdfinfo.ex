@@ -42,7 +42,7 @@ defmodule Pdfinfo do
   def do_page_info([{"Page    " <> _, size}, {"Page    " <> _, rot} | columns], acc) do
     [w, _, h | _] = size |> String.split(" ")
     p = paper(w |> Float.parse |> elem(0), h |> Float.parse |> elem(0))
-    info = %{width: w |> Float.parse |> elem(0), height: h |> Float.parse |> elem(0), paper: p, rotation: rot}
+    info = %{width: w |> Float.parse |> elem(0), height: h |> Float.parse |> elem(0), paper: p, rotation: String.to_integer(rot)}
     do_page_info(columns, [info | acc])
   end
 
