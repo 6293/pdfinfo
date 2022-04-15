@@ -64,7 +64,7 @@ defmodule Pdfinfo do
   end
 
   defp format([{"Pages", npage} | columns], acc) do
-    format(columns, Map.put(acc, :npage, npage))
+    format(columns, Map.put(acc, :npage, String.to_integer(npage)))
   end
 
   defp format([{"Creator", creator} | columns], acc) do
