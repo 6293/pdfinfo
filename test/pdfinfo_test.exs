@@ -16,6 +16,7 @@ defmodule PdfinfoTest do
     assert %{
       npage: 1,
       optimized: false,
+      tagged: false,
       pages: [%{height: 792.0, paper: {:letter, :portrait}, rotation: 0, width: 612.0}],
       producer: "https://imagemagick.org"
     } = res
@@ -28,6 +29,7 @@ defmodule PdfinfoTest do
     assert %{
       npage: 1,
       optimized: false,
+      tagged: false,
       pages: [%{height: 842.0, paper: {:a4, :portrait}, rotation: 0, width: 595.0}],
       producer: "https://imagemagick.org"
     } = res
@@ -40,6 +42,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 1,
              optimized: false,
+             tagged: false,
              pages: [%{height: 1032.0, paper: {:b4, :portrait}, rotation: 0, width: 729.0}],
              producer: "https://imagemagick.org"
            } = res
@@ -52,6 +55,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 1,
              optimized: false,
+             tagged: false,
              pages: [%{height: 726.0, paper: {:b4, :landscape}, rotation: 0, width: 1033.0}],
              producer: "https://imagemagick.org"
            } = res
@@ -64,6 +68,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 1,
              optimized: false,
+             tagged: false,
              pages: [%{height: 300.0, paper: {:other, :square}, rotation: 0, width: 300.0}],
              producer: "https://imagemagick.org"
            } = res
@@ -76,6 +81,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 1,
              optimized: false,
+             tagged: false,
              pages: [%{height: 400.0, paper: {:other, :portrait}, rotation: 0, width: 300.0}],
              producer: "https://imagemagick.org"
            } = res
@@ -88,6 +94,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 1,
              optimized: false,
+             tagged: false,
              pages: [%{height: 300.0, paper: {:other, :landscape}, rotation: 0, width: 400.0}],
              producer: "https://imagemagick.org"
            } = res
@@ -101,6 +108,7 @@ defmodule PdfinfoTest do
     assert %{
              npage: 2,
              optimized: false,
+             tagged: false,
              pages: [
                %{
                  height: 792.0,

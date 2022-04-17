@@ -35,18 +35,18 @@ defmodule Pdfinfo do
     end
   end
 
-  def do_page_info([], acc) do
+  defp do_page_info([], acc) do
     Enum.reverse(acc)
   end
 
-  def do_page_info([{"Page    " <> _, size}, {"Page    " <> _, rot} | columns], acc) do
+  defp do_page_info([{"Page    " <> _, size}, {"Page    " <> _, rot} | columns], acc) do
     [w, _, h | _] = size |> String.split(" ")
     p = paper(w |> Float.parse |> elem(0), h |> Float.parse |> elem(0))
     info = %{width: w |> Float.parse |> elem(0), height: h |> Float.parse |> elem(0), paper: p, rotation: String.to_integer(rot)}
     do_page_info(columns, [info | acc])
   end
 
-  def do_page_info([_ | columns], acc) do
+  defp do_page_info([_ | columns], acc) do
     do_page_info(columns, acc)
   end
 
@@ -67,8 +67,20 @@ defmodule Pdfinfo do
     format(columns, Map.put(acc, :npage, String.to_integer(npage)))
   end
 
+  defp format([{"Title", title} | columns], acc) do
+    format(columns, Map.put(acc, :title, title))
+  end
+
+  defp format([{"Subject", subject} | columns], acc) do
+    format(columns, Map.put(acc, :subject, subject))
+  end
+
   defp format([{"Creator", creator} | columns], acc) do
     format(columns, Map.put(acc, :creator, creator))
+  end
+
+  defp format([{"Author", author} | columns], acc) do
+    format(columns, Map.put(acc, :author, author))
   end
 
   defp format([{"Producer", producer} | columns], acc) do
@@ -79,8 +91,33 @@ defmodule Pdfinfo do
     format(columns, Map.put(acc, :optimized, optimized == "yes"))
   end
 
+  defp format([{"Tagged", tagged} | columns], acc) do
+    format(columns, Map.put(acc, :tagged, tagged == "yes"))
+  end
+
+  defp format([{"CreationDate", creation_date} | columns], acc) do
+    format(columns, Map.put(acc, :creation_date, creation_date |> to_canonical |> Timex.parse!("%a %b %d %T %Y %Z", :strftime)))
+  end
+
+  defp format([{"ModDate", creation_date} | columns], acc) do
+    format(columns, Map.put(acc, :mod_date, creation_date |> to_canonical |> Timex.parse!("%a %b %d %T %Y %Z", :strftime)))
+  end
+
+  defp format([{"PDF Version", pdf_version} | columns], acc) do
+    format(columns, Map.put(acc, :pdf_version, pdf_version))
+  end
+
+  defp format([{"File size", file_size} | columns], acc) do
+    s = file_size |> String.split(" ") |> hd |> String.to_integer
+    format(columns, Map.put(acc, :file_size, s))
+  end
+
   defp format([_ | columns], acc) do
     format(columns, acc)
+  end
+
+  defp to_canonical(str) do
+    String.replace(str, "JST", "Asia/Tokyo")
   end
 
   defp paper(w, h) do
