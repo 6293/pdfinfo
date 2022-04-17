@@ -1,0 +1,19 @@
+---
+name: release
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Publish to Hex
+        uses: wesleimp/action-publish-hex@v1
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+          DEBUG: 1
